@@ -4,6 +4,10 @@
   <groupId>org.example</groupId>
   <artifactId>brand-demo</artifactId>
   <packaging>war</packaging>
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
 
   <dependencies>
     <!--mybatis-->
@@ -17,7 +21,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.34</version>
+      <version>8.0.32</version>
     </dependency>
 
     <!--servlet-->
