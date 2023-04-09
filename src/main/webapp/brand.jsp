@@ -8,20 +8,19 @@
     <title>Title</title>
 </head>
 <body>
+
 <input type="button" value="新增" id="add"><br>
 <hr>
 <table border="1" cellspacing="0" width="80%">
     <tr>
-        <th>序号</th>
-        <th>品牌名称</th>
-        <th>企业名称</th>
+        <th>序號</th>
+        <th>品牌名稱</th>
+        <th>企業名稱</th>
         <th>排序</th>
-        <th>品牌介绍</th>
-        <th>状态</th>
+        <th>品牌介紹</th>
+        <th>狀態</th>
         <th>操作</th>
-
     </tr>
-
 
     <c:forEach items="${brands}" var="brand" varStatus="status">
         <tr align="center">
@@ -46,10 +45,9 @@
 </table>
 
 <script>
-    document.getElementById("add").onclick = function (){
+    document.getElementById("add").onclick = function () {
         location.href = "/brand-demo/addBrand.jsp";
     }
-
 </script>
 </body>
 </html>
