@@ -8,6 +8,8 @@
     <title>Title</title>
 </head>
 <body>
+<%--el 表達式可以活取域中的資料，因此不需要 getattribute--%>
+<h1>${user.username}, 歡迎您</h1>
 
 <input type="button" value="新增" id="add"><br>
 <hr>
