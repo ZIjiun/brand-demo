@@ -19,4 +19,13 @@ public interface BrandMapper {
 
     @Insert("Insert into tb_brand values (null, #{brandName}, #{companyName}, #{ordered}, #{description}, #{status})")
     void add(Brand brand);
+
+    /**
+     * 根據 Id 查詢
+     * @param id
+     * @return
+     */
+    @Select("select * from tb_brand where id=#{id}")
+    @ResultMap("brandResultMap")
+    Brand selectById(int id);
 }
