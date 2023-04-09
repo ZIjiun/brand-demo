@@ -5,10 +5,7 @@ import com.Kent.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet("/loginServlet")
@@ -22,12 +19,34 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
+        // 取得複選框資料
+        String remember = req.getParameter("remember");
+
         // 2. 調用 Service 查詢
         User user = service.login(username, password);
 
         // 3. 判斷
         if (user != null) {
+            System.out.println(1);
             // 登錄成功, 重定向到 查詢所有的 BrandServlet
+
+            // 判斷使用者是否勾選記住我
+            // 字串寫前面來比較可以預防 null 的異常，因為 字串永遠不為空，調用 equals() 就不會出現 null 的異常
+            if ("1".equals(remember)) {
+                // 勾選了，發送 cookie
+
+                // 創建 cookie 物件
+                Cookie c_username = new Cookie("username", username);
+                Cookie c_password = new Cookie("password", password);
+
+                // 設定 cookie 的存活時間
+                c_username.setMaxAge(60 * 60 * 24 * 7);
+                c_password.setMaxAge(60 * 60 * 24 * 7);
+
+                // 發送
+                resp.addCookie(c_username);
+                resp.addCookie(c_password);
+            }
 
             // 將登錄成功後的 User 物件，儲存在 Session 中
             HttpSession session = req.getSession();
