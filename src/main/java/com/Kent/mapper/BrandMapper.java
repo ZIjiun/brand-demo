@@ -1,10 +1,7 @@
 package com.Kent.mapper;
 
 import com.Kent.pojo.Brand;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -36,4 +33,11 @@ public interface BrandMapper {
      */
     @Update("update tb_brand set brand_name = #{brandName}, company_name = #{companyName}, ordered = #{ordered}, description = #{description}, status = #{status} where id = #{id}")
     void update(Brand brand);
+
+    /**
+     * 刪除
+     * @param id
+     */
+    @Delete("delete from tb_brand where id = #{id}")
+    void deleteById(int id);
 }
