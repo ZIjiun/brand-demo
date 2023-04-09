@@ -94,4 +94,21 @@ public class BrandService {
         // 釋放資源
         sqlSession.close();
     }
+
+    public void deleteById(int id) {
+        // 2. 取得 SqlSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        // 3. 取得 BrandMapper
+        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+
+        // 4. 調用方法
+        mapper.deleteById(id);
+
+        // 5. 提交事務
+        sqlSession.commit();
+
+        // 釋放資源
+        sqlSession.close();
+    }
 }
