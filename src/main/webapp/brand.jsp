@@ -38,7 +38,7 @@
             </c:if>
 
             <%--使用GET請求，將 brand.id 送到 Servlet 去--%>
-            <td><a href="/brand-demo/selectByIdServlet?id=${brand.id}">修改</a> <a href="#">删除</a></td>
+            <td><a href="/brand-demo/selectByIdServlet?id=${brand.id}">修改</a> <a href="/brand-demo/deleteByIdServlet?id=${brand.id}">删除</a></td>
         </tr>
 
     </c:forEach>
