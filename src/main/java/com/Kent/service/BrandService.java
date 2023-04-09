@@ -53,4 +53,25 @@ public class BrandService {
         // 釋放資源
         sqlSession.close();
     }
+
+    /**
+     * 根據 id 查詢
+     * @return
+     */
+    public Brand selectById(int id) {
+        // 調用 BrandMapper.selectAll()
+        // 2. 取得 SqlSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        // 3. 取得 BrandMapper
+        BrandMapper mapper = sqlSession.getMapper(BrandMapper.class);
+
+        // 4. 調用方法
+        Brand brand = mapper.selectById(id);
+
+        sqlSession.close();
+
+        return brand;
+    }
+
 }
