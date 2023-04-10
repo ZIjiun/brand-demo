@@ -48,7 +48,7 @@
                 <td>驗證碼</td>
                 <td class="inputs">
                     <input name="checkCode" type="text" id="checkCode">
-                    <img src="imgs/a.jpg">
+                    <img id="checkCodeImg" src="/brand-demo/checkCodeServlet">
                     <a href="#" id="changeImg">看不清楚？</a>
                 </td>
             </tr>
@@ -62,5 +62,13 @@
     </form>
 
 </div>
+<script>
+    document.getElementById("changeImg").onclick = function () {
+        // 如果已經訪問過 /brand-demo/checkCodeServlet，瀏覽器會緩存這個圖片，再一次訪問同樣位置的時候，就會直接從緩存裡面拿資料
+        // 所以在後面接上時間戳記，確保每次訪問的路徑都不同
+        document.getElementById("checkCodeImg").src = "/brand-demo/checkCodeServlet?" + new Date().getMilliseconds();
+    }
+</script>
+
 </body>
 </html>
