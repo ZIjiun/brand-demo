@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="addBrand.html"><input type="button" value="新增"></a><br>
+<hr>
+<table id="brandTable" border="1" cellspacing="0" width="100%">
+    <tr>
+        <th>序號</th>
+        <th>品牌名稱</th>
+        <th>企業名稱</th>
+        <th>排序</th>
+        <th>品牌介紹</th>
+        <th>狀態</th>
+        <th>操作</th>
+    </tr>
+    <tr align="center">
+        <td>1</td>
+        <td>三隻松鼠</td>
+        <td>三隻松鼠</td>
+        <td>100</td>
+        <td>三隻松鼠，好吃不上火</td>
+        <td>啟用</td>
+        <td><a href="#">修改</a> <a href="#">刪除</a></td>
+    </tr>
+
+    <tr align="center">
+        <td>2</td>
+        <td>優衣庫</td>
+        <td>優衣庫</td>
+        <td>10</td>
+        <td>優衣庫，服適人生</td>
+        <td>禁用</td>
+
+        <td><a href="#">修改</a> <a href="#">刪除</a></td>
+    </tr>
+
+    <tr align="center">
+        <td>3</td>
+        <td>小米</td>
+        <td>小米科技有限公司</td>
+        <td>1000</td>
+        <td>為發燒而生</td>
+        <td>啟用</td>
+
+        <td><a href="#">修改</a> <a href="#">刪除</a></td>
+    </tr>
+</table>
+
+<script src="js/axios-0.18.0.js"></script>
+
+<script>
+    // 1. 當頁面加載完成後，發送 ajax 請求
+    window.onload = function () {
+        // 2. 發送 ajax 請求
+        axios({
+            method: "get",
+            url: "http://localhost:8080/brand-demo/selectAllServlet2",
+        }).then(function (resp) {
+            // 獲取資料
+            let brands = resp.data;
+
+            let tableData = "<tr>\n" +
+                "        <th>序號</th>\n" +
+                "        <th>品牌名稱</th>\n" +
+                "        <th>企業名稱</th>\n" +
+                "        <th>排序</th>\n" +
+                "        <th>品牌介紹</th>\n" +
+                "        <th>狀態</th>\n" +
+                "        <th>操作</th>\n" +
+                "    </tr>";
+
+            for(let i = 0; i < brands.length; i++) {
+                let brand = brands[i];
+                console.log(brand.companyName);
+                tableData += "<tr align=\"center\">\n" +
+                    "        <td>"+(i+1)+"</td>\n" +
+                    "        <td>"+brand.brandName+"</td>\n" +
+                    "        <td>"+brand.companyName+"</td>\n" +
+                    "        <td>"+brand.ordered+"</td>\n" +
+                    "        <td>"+brand.description+"</td>\n" +
+                    "        <td>"+brand.status+"</td>\n" +
+                    "        <td><a href=\"#\">修改</a> <a href=\"#\">刪除</a></td>\n" +
+                    "    </tr>";
+            }
+            document.getElementById("brandTable").innerHTML = tableData;
+        })
+    }
+
+
+</script>
+
+
+</body>
+</html>
