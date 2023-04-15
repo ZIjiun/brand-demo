@@ -6,78 +6,103 @@
     <title>新增品牌</title>
 </head>
 <body>
-<h3>新增品牌</h3>
-<!--action 是提交整張表單，是一個同步的請求，因為這邊要使用異步的請求，
-所以不用寫了-->
-<form action="" method="post">
-    品牌名稱：<input id="brandName" name="brandName"><br>
-    企業名稱：<input id="companyName" name="companyName"><br>
-    排序：<input id="ordered" name="ordered"><br>
-    描述資訊：<textarea rows="5" cols="20" id="description" name="description"></textarea><br>
-    狀態：
-    <input type="radio" name="status" value="0">禁用
-    <input type="radio" name="status" value="1">啟用<br>
-    <!--submit 按鈕有提交表單的功能，但這是一個同步的請求，
-    因為要使用異步的請求，給一個普通的按鈕就行了-->
-    <input type="button" id="btn" value="提交">
-</form>
+<div id="app">
+    <h3>新增品牌</h3>
+    <!--action 是提交整張表單，是一個同步的請求，因為這邊要使用異步的請求，所以不用寫了-->
+    <form action="" method="post">
+        品牌名稱：<input id="brandName" v-model="brand.brandName" name="brandName"><br>
+        企業名稱：<input id="companyName" v-model="brand.companyName" name="companyName"><br>
+        排序：<input id="ordered" v-model="brand.ordered" name="ordered"><br>
+        描述資訊：<textarea rows="5" cols="20" id="description" v-model="brand.description" name="description"></textarea><br>
+        狀態：
+        <input type="radio" name="status" v-model="brand.status" value="0">禁用
+        <input type="radio" name="status" v-model="brand.status" value="1">啟用<br>
+        <!--submit 按鈕有提交表單的功能，但這是一個同步的請求，
+        因為要使用異步的請求，給一個普通的按鈕就行了-->
+        <input type="button" id="btn" @click="submitForm" value="提交">
+    </form>
+</div>
 
 <script src="js/axios-0.18.0.js"></script>
+<script src="js/vue.js"></script>
 
 <script>
-    //1. 按鈕綁定單擊事件
-    document.getElementById("btn").onclick = function () {
-        // 將表單資料轉為 JSON
-        // 先做一個 JS 的物件，當把這個物件放到 axios 放到 JS 物件後，axios 會自動把他轉為 JSON 格式
-        var formData = {
-            brandName: "",
-            companyName: "",
-            ordered: "",
-            description: "",
-            status: "",
-        };
 
-        // 取得表單資料
-        let brandName = document.getElementById("brandName").value;
-        // 設置資料
-        formData.brandName = brandName;
-
-        // 取得表單資料
-        let companyName = document.getElementById("companyName").value;
-        // 設置資料
-        formData.companyName = companyName;
-
-        // 取得表單資料
-        let ordered = document.getElementById("ordered").value;
-        // 設置資料
-        formData.ordered = ordered;
-
-        // 取得表單資料
-        let description = document.getElementById("description").value;
-        // 設置資料
-        formData.description = description;
-
-        let status = document.getElementsByName("status");
-        for (let i = 0; i < status.length; i++){
-            if (status[i].checked) {
-                formData.status = status[i].value;
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                brand: {}
+            }
+        },
+        methods: {
+            submitForm() {
+                var _this = this;
+                // 發送 ajax 請求，添加
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/brand-demo/addServlet2",
+                    data: _this.brand
+                }).then(function () {
+                    location.href = "http://localhost:8080/brand-demo/brand.html"
+                })
             }
         }
+    })
 
-        console.log(formData);
-
-        // 2. 發送 ajax 請求
-        axios({
-            method: "post",
-            url: "http://localhost:8080/brand-demo/addServlet2",
-            data: formData
-        }).then(function (resp) {
-            // 判斷響應資料是否為 success
-            if (resp.data === 'success') {
-                location.href = "http://localhost:8080/brand-demo/brand.html";
-            }
-        })
-    }
+    // //1. 按鈕綁定單擊事件
+    // document.getElementById("btn").onclick = function () {
+    //     // 將表單資料轉為 JSON
+    //     // 先做一個 JS 的物件，當把這個物件放到 axios 放到 JS 物件後，axios 會自動把他轉為 JSON 格式
+    //     var formData = {
+    //         brandName: "",
+    //         companyName: "",
+    //         ordered: "",
+    //         description: "",
+    //         status: "",
+    //     };
+    //
+    //     // 取得表單資料
+    //     let brandName = document.getElementById("brandName").value;
+    //     // 設置資料
+    //     formData.brandName = brandName;
+    //
+    //     // 取得表單資料
+    //     let companyName = document.getElementById("companyName").value;
+    //     // 設置資料
+    //     formData.companyName = companyName;
+    //
+    //     // 取得表單資料
+    //     let ordered = document.getElementById("ordered").value;
+    //     // 設置資料
+    //     formData.ordered = ordered;
+    //
+    //     // 取得表單資料
+    //     let description = document.getElementById("description").value;
+    //     // 設置資料
+    //     formData.description = description;
+    //
+    //     let status = document.getElementsByName("status");
+    //     for (let i = 0; i < status.length; i++){
+    //         if (status[i].checked) {
+    //             formData.status = status[i].value;
+    //         }
+    //     }
+    //
+    //     console.log(formData);
+    //
+    //     // 2. 發送 ajax 請求
+    //     axios({
+    //         method: "post",
+    //         url: "http://localhost:8080/brand-demo/addServlet2",
+    //         data: formData
+    //     }).then(function (resp) {
+    //         // 判斷響應資料是否為 success
+    //         if (resp.data === 'success') {
+    //             location.href = "http://localhost:8080/brand-demo/brand.html";
+    //         }
+    //     })
+    // }
 
 </script>
 
